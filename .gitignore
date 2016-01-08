@@ -1,5 +1,6 @@
 /.buckd
 /buck-out
+/buck.log
 /.classpath
 /.project
 /.settings/org.maven.ide.eclipse.prefs
