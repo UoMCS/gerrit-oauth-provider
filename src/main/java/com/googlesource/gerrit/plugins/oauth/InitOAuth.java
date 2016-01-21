@@ -23,26 +23,25 @@ class InitOAuth implements InitStep {
   static final String PLUGIN_SECTION = "plugin";
   static final String CLIENT_ID = "client-id";
   static final String CLIENT_SECRET = "client-secret";
-  static final String LINK_TO_EXISTING_OPENID_ACCOUNT =
-      "link-to-existing-openid-accounts";
+  static final String LINK_TO_EXISTING_OPENID_ACCOUNT = "link-to-existing-openid-accounts";
   static final String DOMAIN = "domain";
-  static final String USE_EMAIL_AS_USERNAME =
-      "use-email-as-username";
+  static final String USE_EMAIL_AS_USERNAME = "use-email-as-username";
 
   private final ConsoleUI ui;
   private final Section googleOAuthProviderSection;
   private final Section githubOAuthProviderSection;
+  private final Section uomgitlabOAuthProviderSection;
   private final Section bitbucketOAuthProviderSection;
 
   @Inject
-  InitOAuth(ConsoleUI ui,
-      Section.Factory sections,
-      @PluginName String pluginName) {
+  InitOAuth(ConsoleUI ui, Section.Factory sections, @PluginName String pluginName) {
     this.ui = ui;
     this.googleOAuthProviderSection = sections.get(
         PLUGIN_SECTION, pluginName + GoogleOAuthService.CONFIG_SUFFIX);
     this.githubOAuthProviderSection = sections.get(
         PLUGIN_SECTION, pluginName + GitHubOAuthService.CONFIG_SUFFIX);
+    this.uomgitlabOAuthProviderSection = sections.get(
+        PLUGIN_SECTION, pluginName + UoMGitLabOAuthService.CONFIG_SUFFIX);
     this.bitbucketOAuthProviderSection = sections.get(
         PLUGIN_SECTION, pluginName + BitbucketOAuthService.CONFIG_SUFFIX);
   }
@@ -64,6 +63,12 @@ class InitOAuth implements InitStep {
         true, "Use GitHub OAuth provider for Gerrit login ?");
     if (configueGitHubOAuthProvider) {
       configureOAuth(githubOAuthProviderSection);
+    }
+
+    boolean configueUoMGitLabOAuthProvider = ui.yesno(
+        true, "Use UoMGitLab OAuth provider for Gerrit login ?");
+    if (configueUoMGitLabOAuthProvider) {
+      configureOAuth(uomgitlabOAuthProviderSection);
     }
 
     boolean configureBitbucketOAuthProvider = ui.yesno(
