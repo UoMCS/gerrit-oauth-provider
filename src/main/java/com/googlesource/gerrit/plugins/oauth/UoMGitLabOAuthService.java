@@ -48,7 +48,7 @@ import javax.servlet.http.HttpServletResponse;
 class UoMGitLabOAuthService implements OAuthServiceProvider {
     private static final Logger log =  LoggerFactory.getLogger(UoMGitLabOAuthService.class);
 
-    static final String CONFIG_SUFFIX = "-github-oauth";
+    static final String CONFIG_SUFFIX = "-uomgitlab-oauth";
 
     private static final String PROTECTED_RESOURCE_URL = "https://gitlab.cs.man.ac.uk/api/v3/user";
 
